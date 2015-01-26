@@ -1,0 +1,125 @@
+# git exercise. Single developer and local repository.
+
+# First move to a safe place:
+cd /tmp/
+
+# Run the 'git' command and read the output, its a useful summary.
+git
+
+# Ask git what it knows about the status of the current directory.
+git status
+
+# Introduce yourself to git (set the variables for name and email):
+git config --global user.name "Nicola Chiapolini"
+git config --global user.email "nicola.chiapolini@physik.uzh.ch"
+
+# Verify that git has correctly stored your config (see 'git help config')
+git config user.name
+git config user.email
+git config -l
+
+# Create a directory for this exercise and enter it.
+mkdir demo_git_single_local
+cd demo_git_single_local
+
+# Create a new git repository within the current directory.
+git init
+
+# Verify that you have a brand new ".git/" directory...
+ls -al
+# ...and its content.
+ls -al .git/
+
+# Check the status and compare the output to the one from last time
+git status
+
+# Create a file named hello.py that prints some salutation.
+echo "print 'hello.'" > hello.py
+
+# Check the status and compare the output to the one from last time
+git status
+
+# Put hello.py in the staging area
+git add hello.py
+# and check how the status changes
+git status
+
+# Now record commit to the repository.
+git commit -m "My first commit. A big step for the mankind."
+
+# Check status again, it is instructive.
+git status
+
+# Edit hello.py some more.
+echo "import numpy as np" >> hello.py
+echo "print np.random.rand(3)" >> hello.py
+
+# See how the status changes accordingly.
+git status
+
+# Show the changes between current and staged files.
+git diff
+
+# Add changes into the staging area (index)...
+git add hello.py
+# and see how the status changes accordingly.
+git status
+
+# Edit hello.py again, e.g., adding another print statement.
+echo "print np.eye(4)" >> hello.py
+
+# And again the status..
+git status
+# and the changes between the 3 different versions.
+git diff
+git diff --staged
+
+# Commit *only* changes from the staging area.
+git commit -m "print 3 random numbers."
+
+# Verify that changes not added to the staging area were not recorded.
+git diff
+
+# Commit all changes in hello.py skipping the staging area.
+git commit hello.py -m "Added beautiful eyes."
+
+# Edit hello.py again and create a new file.
+echo "print 42" >> hello.py
+echo "import time" > clock.py
+echo "print time.ctime()" >> clock.py
+
+# Inspect the status and the changes.
+git status
+git diff
+
+# Commit everything, skipping the staging area where possible.
+git add clock.py
+git commit -a -m "Add a swiss clock and improve hello.py."
+
+# Check that you really commited everything.
+git status
+
+# See the logs of all commits.
+git log
+
+# See the logs of all commits with the git GUI.
+gitk
+
+# Go crazy and mess with your files. Remove files.
+echo "printttt 'I hate you...'" > hello.py
+rm clock.py
+
+# Oh no! What have you done! Shame! Verify status and changes.
+git status
+git diff
+
+# Get rid of the last untracked changes
+git checkout .
+
+# Verify that everything is back to normal.
+ls
+git status
+git diff
+
+#Relax: your work is safe.
+

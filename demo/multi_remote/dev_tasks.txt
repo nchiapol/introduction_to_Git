@@ -1,0 +1,12 @@
+fetch: push new change
+----------------------
+echo "Ulrich Straumann" >> people/roman.gredig.txt
+
+pull: push new change
+---------------------
+echo "Ulrich Straumann" >> people/christian.elsasser.txt
+
+conflict: change title of graph
+-------------------------------
+vim social_network.py
+

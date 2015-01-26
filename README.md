@@ -1,4 +1,5 @@
-introduction_to_Git
-===================
+# Git Tutorial
 
-Material to teach Git at introductory level.
+## Description
+Version of Emanuele's talk; adapted for the UZH School "Scientifc Programming with Python"
+

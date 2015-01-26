@@ -1,0 +1,119 @@
+\usepackage{etex}                     % increase registry size to prevent "No Room for new ..." problems 
+                                      % load directly after documentclass
+
+%% setup language
+\usepackage[utf8]{inputenc}           % we want the source in utf8
+\usepackage[english]{babel}           % select the language to be used (not repsected by siunitx) 
+
+%% setup fonts
+\usepackage[T1]{fontenc}              % use T1 fonts (render nicer on screen)
+\usepackage{helvet}                   % use Helvetica as sans-serif font
+
+%% setup graphics
+% \graphicspath{{../tex/},{img/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\usepackage{tikz}                     % THE tool for drawing
+                                      % Manual: `texdoc pgf` (pgfmanual.pdf)
+\usetikzlibrary{backgrounds}          % load backgrounds for Tikz (see manual, Section 25)
+\usepgflibrary{arrows.meta}
+\usetikzlibrary{bending} 
+ 
+%% use siunitx for simplyfied unit formating
+%% replace by experiments official style-file if available
+%% 2012-01: asymmetric and multiple uncertainties are not supported
+\usepackage{siunitx}
+\sisetup{
+  separate-uncertainty = true,        % mark uncertainty with \pm
+  range-units  = single,              % for range: show unit only once
+  range-phrase = { - }                % for range: separate values by -
+}
+
+\usepackage{fancyvrb}                 % allow for colored verbatim and other fancy tricks 
+\usepackage{minted}                   % for colored code-listings
+% \usepackage[super]{nth}               % for 2^{nd} and friends 
+\usepackage{soul}
+
+%% define slide layout
+%% size of slide: (128 x 96 mm)
+\usepackage{appendixnumberbeamer}     % do not count pages in appendix for totalframenumber
+
+%% define helpfull macros
+
+%% create title frame for new section
+\newcommand{\sectiontitle}{\begin{frame}{}    
+\centering % empty line before \end{frame} necesarry!
+{\usebeamercolor[fg]{title} \Huge\insertsection}
+
+\end{frame}}
+%% automatically add title slide for new sections
+%%   \shortsec is necessary to pass the optional argument on
+% \let\oldsection\section
+% \renewcommand{\section}[2][\shortsec]{\def\shortsec{#2}\oldsection[#1]{#2}\sectiontitle}
+
+% \usepackage{minted}
+% \usemintedstyle{solarized}
+\newmintedfile{py}{fontsize=\footnotesize, xleftmargin=12pt}
+\newmintedfile{pycon}{fontsize=\footnotesize, xleftmargin=12pt}
+\newmintedfile{console}{fontsize=\footnotesize, xleftmargin=12pt}
+
+\newminted{py}{fontsize=\footnotesize, xleftmargin=12pt}
+\newminted{pycon}{fontsize=\footnotesize, xleftmargin=12pt}
+\newminted{console}{fontsize=\footnotesize, xleftmargin=12pt}
+
+\mode<presentation>
+{
+
+  %% Frame Head
+  \setbeamertemplate{headline}
+  {
+	%% first header row: Author, date and frame number
+    \begin{beamercolorbox}{section in head/foot}
+       \vskip2mm \hspace*{2mm} \insertauthor, \insertshortdate {}{\hfill\insertframenumber{} / \inserttotalframenumber \hspace*{2mm}}\vskip2pt
+    \end{beamercolorbox}
+    %% seperator line
+    \begin{beamercolorbox}[ht=0.1ex]{fg=white,bg=white}
+    \end{beamercolorbox}
+    %% second header row: sections
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex]{section in head/foot}
+        \insertsectionnavigationhorizontal{1\paperwidth}{}{}
+    \end{beamercolorbox}
+  }
+  \setbeamercolor{section in head/foot}{fg=white,bg=black}
+
+  %% General Settings
+  \setbeamersize{text margin left=0.5cm}
+  \setbeamersize{text margin right=0.5cm}
+
+
+  \setbeamercovered{transparent=25}                  % not active overlays are 25% colored
+  \setbeamercolor{alerted text}{fg=red}              % set color for \alert
+
+  \setbeamertemplate{background canvas}{}            % set background to transparent 
+%   \setbeamertemplate{background}[grid][step=0.5cm]   % activate grid to help positioning content (decativate before final compile)
+}
+
+\addtobeamertemplate{block begin}{}{\vspace*{-2.5mm}}
+\addtobeamertemplate{block example begin}{}{\vspace*{-2.5mm}}
+
+% \usefonttheme{structurebold}
+% make links like in solarized
+\definecolor{base03}{RGB}{0,43,54}
+\definecolor{base02}{RGB}{7,54,66}
+\definecolor{base01}{RGB}{88,110,117}
+\definecolor{base00}{RGB}{101,123,131}
+\definecolor{base0}{RGB}{131,148,150}
+\definecolor{base1}{RGB}{147,161,161}
+\definecolor{base2}{RGB}{238,232,213}
+\definecolor{base3}{RGB}{253,246,227}
+\definecolor{bgGrey}{RGB}{240,240,240}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\usecolortheme[named=blue]{structure}
+% \setbeamercolor{example}{fg=green}
+% \setbeamercolor{block title example}{fg=green, bg=bgGrey}
+\setbeamercolor{block title}{bg=bgGrey}
+\setbeamercolor{block body}{bg=bgGrey}
+\setbeamercolor{block title example}{bg=bgGrey}
+\setbeamercolor{block body example}{bg=bgGrey}
+% \setbeamertemplate{blocks}[shadow=true]

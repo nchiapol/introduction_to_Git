@@ -1,0 +1,115 @@
+# git exercise. Multiple developers and one remote shared repository.
+
+##############################################
+# Scenario 2a : "user of a remote repository".
+##############################################
+
+# Clone the git repository
+# ssh://python@git.physik.uzh.ch:8443/python/sn.git
+git clone ssh://python@git.physik.uzh.ch:8443/python/sn.git
+
+# Enter the new directory and check the status
+cd sn
+git status
+
+# Ask git about the URL of the remote repository.
+git remote -v
+
+# Read and execute social_network.py to understand what it does.
+cat social_network.py
+python social_network.py
+
+# !! Tell the tutors that you reached "fetch".
+# The developers just pushed a new version to the remote repository.
+# You want to fetch these updates to your local repository.
+git fetch
+
+# Inspect how the logs changes accordingly.
+git log
+
+# See the logs from the graphical interface. (hint: use "--all" flag).
+gitk --all
+
+# Merge the updates within your working tree.
+git merge origin/master
+
+# Inspect how the logs changes accordingly.
+git log
+
+# Execute the script social_network.py again, see the effect.
+python social_network.py
+
+# See what changed after merging, from the graphical interface.
+gitk --all
+
+######################################################
+# Scenario 2b: "local developer of a remote project"
+######################################################
+
+# Create a new file within the directory "people/" called
+# after you: <name.surname>.txt . Within that file write
+# a short list of people you know (other students, lecturers,
+# friends, family etc.)  one name per line in the form of
+# "name surname".
+vim people/nicola.chiapolini.txt
+
+# Execute social_network.py and check that it correctly shows the
+# information that you have just provided.
+python social_network.py
+
+# Add your new file people/<name.surname.txt> to the staging area.
+git add people/nicola.chiapolini.txt
+
+# Commit changes in the staging area.
+git commit -m "add file for nicola."
+
+# Check how the log changes accordingly.
+git log --oneline
+gitk --all
+
+####################################################
+# Scenario 2c: "from local developer to contributor"
+####################################################
+
+# !! Tell the tutors that you reached "push".
+# You want to share your recent changes with other developers.
+# Push your changes to the remote repository.
+# WARNING: the remote repository should have recent updates
+# from other developers that you do not have yet, so a direct push
+# attempt should fail - try it.
+git push
+git pull
+git push
+
+# See how the logs of all branches (--all) reflects your push.
+gitk --all
+
+#########################
+# Scenario 2d: conflicts!
+#########################
+
+# Edit social_network.py and improve the title of the graph.
+vim social_network.py
+
+# Execute social_network.py to verify that your code works well.
+python social_network.py
+
+# Commit changes to your local repository.
+git commit social_network.py -m "Added cool title."
+
+# !! Tell the tutors that you reached "conflict".
+# Pull from the remote repository before pushing.
+git pull
+
+# WARNING: a conflict could raise. Resolve it by editing the
+# appropriate file. Then add and commit the change to resolve the
+# conflict.
+vim social_network.py
+python social_network.py
+git add social_network.py
+git commit -m "Fixed conflicting titles."
+
+# Try again to send your changes to the other developers.
+git pull
+git push
+
